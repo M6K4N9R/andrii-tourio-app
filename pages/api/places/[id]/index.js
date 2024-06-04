@@ -24,6 +24,10 @@ export default async function handler(request, response) {
     });
     response.status(200).json({ status: `Place ${id} updated!` });
   }
+  if (request.method === "DELETE") {
+    await Place.findByIdAndDelete(id);
+    response.status(200).json({ status: `Place ${id} updated!` });
+  }
 
   // const place = db_places.find((place) => place._id.$oid === id);
   // const comment = place?.comments;

@@ -35,16 +35,28 @@ export default function DetailsPage() {
   const { id } = router.query;
   const { data, isLoading, error } = useSWR(`/api/places/${id}`);
 
-  
-
   if (!isReady || isLoading || error) return <h2>Loading...</h2>;
 
   const { name, location, comments, mapURL, description } = data || {};
 
   if (!data) return <h2>Place not found</h2>;
 
-  function deletePlace() {
-    console.log("deleted?");
+  async function deletePlace() {
+    try {
+      const response = await fetch(`/api/places/${id}`, {
+        method: "DELETE",
+      });
+
+      if (response.ok) {
+        console.log("Place deleted successfully");
+
+        router.push("/");
+      } else {
+        console.error("Failed to delete the place");
+      }
+    } catch (error) {
+      console.error("Error deleting the place:", error);
+    }
   }
 
   return (
