@@ -8,7 +8,7 @@ const Main = styled.main`
   margin-top: 5rem;
   padding: 0.5rem;
   position: relative;
-  width: 70%;
+  width: 50%;
   margin 5rem auto;
 `;
 
