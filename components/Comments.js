@@ -20,7 +20,7 @@ export default function Comments({ locationName, comments }) {
   function handleSubmitComment(e) {
     e.preventDefault();
   }
-
+  console.log("Comments id ", comments);
   return (
     <Article>
       <FormContainer onSubmit={handleSubmitComment}>
