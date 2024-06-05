@@ -1,13 +1,13 @@
 import dbConnect from "../../../../db/dbConnect.js";
 import Place from "../../../../db/models/Place.js";
+import Comment from "../../../../db/models/Comment.js";
 
 export default async function handler(request, response) {
   const { id } = request.query;
   await dbConnect();
-  console.log("Id on dynamic page", id);
 
   if (request.method === "GET") {
-    const place = await Place.findById(id);
+    const place = await Place.findById(id).populate("comments");
     if (!id) {
       return;
     }
@@ -15,7 +15,7 @@ export default async function handler(request, response) {
       return response.status(404).json({ status: "Not Found" });
     }
 
-    response.status(200).json(place);
+    response.status(200).json({ place: place });
   }
 
   if (request.method === "PATCH") {
